@@ -1,0 +1,107 @@
+---
+interface Product {
+  id: number;
+  title: string;
+  price: number;
+  image?: string;
+  rating?: number;
+  specs?: Record<string, string>;
+}
+
+interface Props {
+  products: Product[];
+  compareSpecs?: string[];
+}
+
+const { products, compareSpecs = [] } = Astro.props;
+---
+
+<div class="comparison-table overflow-x-auto">
+  <table class="w-full bg-white rounded-lg shadow-md">
+    <thead class="bg-gray-100">
+      <tr>
+        <th class="p-4 text-left">Product</th>
+        {products.map((product) => (
+          <th class="p-4 text-center min-w-[200px]">
+            {product.image && (
+              <img 
+                src={product.image} 
+                alt={product.title}
+                class="w-24 h-24 object-cover mx-auto mb-2 rounded"
+              />
+            )}
+            <div class="font-semibold text-sm">{product.title}</div>
+          </th>
+        ))}
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="border-t">
+        <td class="p-4 font-semibold bg-gray-50">Price</td>
+        {products.map((product) => (
+          <td class="p-4 text-center">
+            <span class="text-xl font-bold text-gray-900">
+              ${product.price}
+            </span>
+          </td>
+        ))}
+      </tr>
+      
+      <tr class="border-t">
+        <td class="p-4 font-semibold bg-gray-50">Rating</td>
+        {products.map((product) => (
+          <td class="p-4 text-center">
+            <div class="flex justify-center text-yellow-400">
+              {Array.from({ length: 5 }, (_, i) => (
+                <svg 
+                  key={i}
+                  class={`w-5 h-5 ${i < (product.rating || 5) ? 'fill-current' : 'fill-gray-300'}`}
+                  viewBox="0 0 20 20"
+                >
+                  <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/>
+                </svg>
+              ))}
+            </div>
+          </td>
+        ))}
+      </tr>
+      
+      {compareSpecs.map((spec) => (
+        <tr class="border-t">
+          <td class="p-4 font-semibold bg-gray-50">{spec}</td>
+          {products.map((product) => (
+            <td class="p-4 text-center text-gray-700">
+              {product.specs?.[spec] || '—'}
+            </td>
+          ))}
+        </tr>
+      ))}
+      
+      <tr class="border-t">
+        <td class="p-4 font-semibold bg-gray-50"></td>
+        {products.map((product) => (
+          <td class="p-4 text-center">
+            <a 
+              href={`/go/${product.id}`}
+              data-product-id={product.id}
+              class="inline-block w-full bg-blue-600 text-white py-2 px-4 rounded-lg font-semibold hover:bg-blue-700 transition"
+              rel="nofollow noopener"
+              target="_blank"
+            >
+              Check Price
+            </a>
+          </td>
+        ))}
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<style>
+  .comparison-table {
+    @media (max-width: 768px) {
+      /* Allow horizontal scroll on mobile */
+      -webkit-overflow-scrolling: touch;
+    }
+  }
+</style>

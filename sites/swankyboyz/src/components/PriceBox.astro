@@ -1,0 +1,67 @@
+---
+interface Props {
+  title: string;
+  price: number;
+  currency?: string;
+  product_id: number;
+  discount?: string;
+  features?: string[];
+  cta_text?: string;
+}
+
+const { 
+  title, 
+  price, 
+  currency = 'USD',
+  product_id,
+  discount,
+  features = [],
+  cta_text = 'Get This Deal'
+} = Astro.props;
+
+const formattedPrice = new Intl.NumberFormat('en-US', {
+  style: 'currency',
+  currency: currency
+}).format(price);
+---
+
+<div class="price-box bg-gradient-to-br from-blue-50 to-blue-100 border-2 border-blue-600 rounded-lg p-6 my-8">
+  <div class="text-center mb-4">
+    {discount && (
+      <span class="inline-block bg-red-500 text-white px-3 py-1 rounded-full text-sm font-semibold mb-2">
+        {discount}
+      </span>
+    )}
+    <h3 class="text-2xl font-bold text-gray-900 mb-2">{title}</h3>
+    <div class="text-4xl font-bold text-blue-600 mb-4">
+      {formattedPrice}
+    </div>
+  </div>
+  
+  {features.length > 0 && (
+    <ul class="space-y-2 mb-6">
+      {features.map((feature) => (
+        <li class="flex items-start">
+          <svg class="w-5 h-5 text-green-500 mr-2 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+          </svg>
+          <span class="text-gray-700">{feature}</span>
+        </li>
+      ))}
+    </ul>
+  )}
+  
+  <a 
+    href={`/go/${product_id}`}
+    data-product-id={product_id}
+    class="block w-full bg-blue-600 text-white text-center py-4 rounded-lg font-bold text-lg hover:bg-blue-700 transition shadow-lg hover:shadow-xl"
+    rel="nofollow noopener"
+    target="_blank"
+  >
+    {cta_text} →
+  </a>
+  
+  <p class="text-xs text-gray-500 text-center mt-3">
+    ✓ Best price guarantee • ✓ Fast shipping • ✓ Money-back guarantee
+  </p>
+</div>
