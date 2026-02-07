@@ -1,0 +1,42 @@
+{
+  "name": "swankyboys-affiliate-system",
+  "version": "1.0.0",
+  "description": "Complete affiliate marketing system for SwankyBoys.com using Cloudflare services",
+  "private": true,
+  "scripts": {
+    "dev": "wrangler pages dev --port 3000",
+    "build": "npm run build:swankyboyz && npm run build:tours && npm run build:personal",
+    "build:swankyboyz": "cd sites/swankyboyz && npm run build",
+    "build:tours": "cd sites/tours && npm run build",
+    "build:personal": "cd sites/personal && npm run build",
+    "deploy": "npm run deploy:swankyboyz && npm run deploy:tours && npm run deploy:personal",
+    "deploy:swankyboyz": "cd sites/swankyboyz && npm run deploy",
+    "deploy:tours": "cd sites/tours && npm run deploy",
+    "deploy:personal": "cd sites/personal && npm run deploy",
+    "db:create": "wrangler d1 create swankyboyz-db && wrangler d1 create tours-db && wrangler d1 create personal-db",
+    "db:migrate": "npm run db:migrate:swankyboyz && npm run db:migrate:tours && npm run db:migrate:personal",
+    "db:migrate:swankyboyz": "wrangler d1 execute swankyboyz-db --file=./database/schema.sql",
+    "db:migrate:tours": "wrangler d1 execute tours-db --file=./database/schema.sql",
+    "db:migrate:personal": "wrangler d1 execute personal-db --file=./database/schema.sql",
+    "db:seed": "npm run db:seed:swankyboyz && npm run db:seed:tours",
+    "db:seed:swankyboyz": "wrangler d1 execute swankyboyz-db --file=./database/seed-swankyboyz.sql",
+    "db:seed:tours": "wrangler d1 execute tours-db --file=./database/seed-tours.sql",
+    "db:check": "wrangler d1 execute swankyboyz-db --command='SELECT name FROM sqlite_master WHERE type=\"table\"'",
+    "generate:swankyboyz": "node scripts/generate-content.js swankyboyz",
+    "generate:tours": "node scripts/generate-content.js tours",
+    "generate:personal": "node scripts/generate-content.js personal",
+    "worker:dev": "wrangler dev workers/link-redirect.js",
+    "worker:deploy": "wrangler deploy workers/link-redirect.js && wrangler deploy workers/click-tracker.js && wrangler deploy workers/content-generator.js && wrangler deploy workers/contact-form.js"
+  },
+  "workspaces": [
+    "sites/swankyboyz",
+    "sites/tours",
+    "sites/personal"
+  ],
+  "devDependencies": {
+    "wrangler": "^3.22.0"
+  },
+  "dependencies": {
+    "dotenv": "^16.3.1"
+  }
+}
