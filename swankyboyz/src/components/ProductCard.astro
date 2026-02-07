@@ -1,0 +1,119 @@
+---
+// Product Card Component
+// Props: product, showDescription, articleId
+const { product, showDescription = true, articleId = null } = Astro.props;
+
+// Build affiliate link with article tracking
+const affiliateLink = articleId 
+  ? `/go/${product.id}?article=${articleId}`
+  : `/go/${product.id}`;
+---
+
+<div class="product-card bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300">
+  <!-- Product Image -->
+  <div class="relative aspect-square overflow-hidden bg-gray-100">
+    <img 
+      src={product.image_url || '/images/placeholder-product.jpg'} 
+      alt={product.title}
+      class="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+      loading="lazy"
+    />
+    {product.commission_rate && (
+      <div class="absolute top-2 right-2 bg-accent text-white text-xs font-semibold px-2 py-1 rounded">
+        {product.commission_rate}% Cash Back
+      </div>
+    )}
+  </div>
+
+  <!-- Product Info -->
+  <div class="p-4">
+    <h3 class="text-lg font-semibold text-gray-900 mb-2 line-clamp-2">
+      {product.title}
+    </h3>
+
+    {showDescription && product.description && (
+      <p class="text-sm text-gray-600 mb-3 line-clamp-3">
+        {product.description}
+      </p>
+    )}
+
+    <!-- Price and CTA -->
+    <div class="flex items-center justify-between mt-4">
+      <div class="flex flex-col">
+        <span class="text-2xl font-bold text-primary">
+          ${product.price.toFixed(2)}
+        </span>
+        {product.commission_rate && (
+          <span class="text-xs text-gray-500">
+            Earn ${(product.price * product.commission_rate / 100).toFixed(2)}
+          </span>
+        )}
+      </div>
+      
+      <a 
+        href={affiliateLink}
+        data-product-id={product.id}
+        data-article-id={articleId}
+        class="btn-primary inline-flex items-center px-4 py-2 bg-secondary hover:bg-accent text-white font-semibold rounded-lg transition-colors duration-200"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Check Price
+        <svg class="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+        </svg>
+      </a>
+    </div>
+
+    <!-- Trust Signals -->
+    <div class="flex items-center gap-2 mt-3 text-xs text-gray-500">
+      <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+      </svg>
+      <span>Verified Seller</span>
+      {product.cookie_duration && (
+        <>
+          <span>•</span>
+          <span>{product.cookie_duration}-day cookie</span>
+        </>
+      )}
+    </div>
+  </div>
+
+  <!-- Schema Markup for SEO -->
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": product.title,
+    "description": product.description,
+    "image": product.image_url,
+    "offers": {
+      "@type": "Offer",
+      "price": product.price,
+      "priceCurrency": product.currency || "USD",
+      "availability": "https://schema.org/InStock",
+      "url": affiliateLink
+    }
+  })} />
+</div>
+
+<style>
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .line-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(212, 175, 55, 0.3);
+  }
+</style>

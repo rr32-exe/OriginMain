@@ -1,0 +1,212 @@
+---
+// Main Layout Component
+import '../styles/global.css';
+
+const { 
+  title = "SwankyBoyz - Men's Lifestyle & Affiliate Products",
+  description = "Discover the best men's products for style, grooming, tech, and lifestyle. Expert reviews and curated recommendations.",
+  canonicalUrl = Astro.url.pathname
+} = Astro.props;
+
+const currentYear = new Date().getFullYear();
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{title}</title>
+  <meta name="description" content={description}>
+  <link rel="canonical" href={canonicalUrl}>
+  
+  {/* Open Graph */}
+  <meta property="og:title" content={title}>
+  <meta property="og:description" content={description}>
+  <meta property="og:type" content="website">
+  <meta property="og:url" content={canonicalUrl}>
+  
+  {/* Twitter Card */}
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content={title}>
+  <meta name="twitter:description" content={description}>
+
+  {/* Preconnect to affiliate networks */}
+  <link rel="preconnect" href="https://shareasale.com">
+  <link rel="preconnect" href="https://cj.com">
+  <link rel="dns-prefetch" href="https://amazon.com">
+  
+  {/* Cloudflare Analytics (add your token) */}
+  <!-- <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "YOUR_TOKEN_HERE"}'></script> -->
+</head>
+<body class="bg-gray-50 text-gray-900">
+  {/* Header */}
+  <header class="bg-white shadow-md sticky top-0 z-50">
+    <nav class="container mx-auto px-4 py-4">
+      <div class="flex items-center justify-between">
+        <a href="/" class="flex items-center gap-2">
+          <div class="text-2xl font-bold text-primary">
+            Swanky<span class="text-secondary">Boyz</span>
+          </div>
+        </a>
+        
+        <div class="hidden md:flex items-center gap-6">
+          <a href="/categories/watches" class="hover:text-secondary transition-colors">Watches</a>
+          <a href="/categories/grooming" class="hover:text-secondary transition-colors">Grooming</a>
+          <a href="/categories/tech" class="hover:text-secondary transition-colors">Tech</a>
+          <a href="/categories/fashion" class="hover:text-secondary transition-colors">Fashion</a>
+          <a href="/articles" class="hover:text-secondary transition-colors">Articles</a>
+        </div>
+
+        {/* Mobile Menu Button */}
+        <button 
+          id="mobile-menu-btn" 
+          class="md:hidden p-2"
+          aria-label="Toggle menu"
+        >
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+          </svg>
+        </button>
+      </div>
+
+      {/* Mobile Menu */}
+      <div id="mobile-menu" class="hidden md:hidden mt-4 pb-4">
+        <a href="/categories/watches" class="block py-2 hover:text-secondary transition-colors">Watches</a>
+        <a href="/categories/grooming" class="block py-2 hover:text-secondary transition-colors">Grooming</a>
+        <a href="/categories/tech" class="block py-2 hover:text-secondary transition-colors">Tech</a>
+        <a href="/categories/fashion" class="block py-2 hover:text-secondary transition-colors">Fashion</a>
+        <a href="/articles" class="block py-2 hover:text-secondary transition-colors">Articles</a>
+      </div>
+    </nav>
+  </header>
+
+  {/* Main Content */}
+  <main class="container mx-auto px-4 py-8">
+    <slot />
+  </main>
+
+  {/* Affiliate Disclosure */}
+  <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4 my-8 mx-4 md:mx-auto md:max-w-4xl">
+    <div class="flex">
+      <div class="flex-shrink-0">
+        <svg class="h-5 w-5 text-yellow-400" viewBox="0 0 20 20" fill="currentColor">
+          <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>
+        </svg>
+      </div>
+      <div class="ml-3">
+        <p class="text-sm text-yellow-700">
+          <strong>Affiliate Disclosure:</strong> This site contains affiliate links. 
+          If you make a purchase through these links, we may earn a commission at no additional cost to you. 
+          We only recommend products we genuinely believe in. 
+          <a href="/disclosure" class="underline hover:text-yellow-900">Full Disclosure Policy</a>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  {/* Footer */}
+  <footer class="bg-primary text-white mt-16">
+    <div class="container mx-auto px-4 py-12">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+        {/* About */}
+        <div>
+          <h3 class="text-xl font-bold mb-4">SwankyBoyz</h3>
+          <p class="text-gray-400 text-sm">
+            Your trusted source for men's lifestyle products, reviews, and recommendations.
+          </p>
+        </div>
+
+        {/* Categories */}
+        <div>
+          <h4 class="font-semibold mb-4">Categories</h4>
+          <ul class="space-y-2 text-sm text-gray-400">
+            <li><a href="/categories/watches" class="hover:text-secondary transition-colors">Watches</a></li>
+            <li><a href="/categories/grooming" class="hover:text-secondary transition-colors">Grooming</a></li>
+            <li><a href="/categories/tech" class="hover:text-secondary transition-colors">Tech</a></li>
+            <li><a href="/categories/fashion" class="hover:text-secondary transition-colors">Fashion</a></li>
+          </ul>
+        </div>
+
+        {/* Resources */}
+        <div>
+          <h4 class="font-semibold mb-4">Resources</h4>
+          <ul class="space-y-2 text-sm text-gray-400">
+            <li><a href="/articles" class="hover:text-secondary transition-colors">Articles</a></li>
+            <li><a href="/about" class="hover:text-secondary transition-colors">About Us</a></li>
+            <li><a href="/contact" class="hover:text-secondary transition-colors">Contact</a></li>
+            <li><a href="/disclosure" class="hover:text-secondary transition-colors">Disclosure</a></li>
+          </ul>
+        </div>
+
+        {/* Newsletter */}
+        <div>
+          <h4 class="font-semibold mb-4">Stay Updated</h4>
+          <p class="text-sm text-gray-400 mb-4">
+            Get the latest product reviews and deals.
+          </p>
+          <form class="flex gap-2" id="newsletter-form">
+            <input 
+              type="email" 
+              placeholder="Your email" 
+              class="flex-1 px-3 py-2 rounded bg-gray-800 text-white text-sm focus:outline-none focus:ring-2 focus:ring-secondary"
+              required
+            />
+            <button 
+              type="submit"
+              class="px-4 py-2 bg-secondary hover:bg-accent rounded font-semibold text-sm transition-colors"
+            >
+              Subscribe
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <div class="border-t border-gray-800 mt-8 pt-8 text-center text-sm text-gray-400">
+        <p>&copy; {currentYear} SwankyBoyz. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  {/* Click Tracking Script */}
+  <script src="/js/track-clicks.js"></script>
+
+  {/* Mobile Menu Script */}
+  <script>
+    const menuBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    
+    if (menuBtn && mobileMenu) {
+      menuBtn.addEventListener('click', () => {
+        mobileMenu.classList.toggle('hidden');
+      });
+    }
+
+    // Newsletter form handler
+    const newsletterForm = document.getElementById('newsletter-form');
+    if (newsletterForm) {
+      newsletterForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const email = e.target.querySelector('input[type="email"]').value;
+        
+        try {
+          const response = await fetch('/api/newsletter', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email })
+          });
+          
+          if (response.ok) {
+            alert('Thank you for subscribing!');
+            e.target.reset();
+          } else {
+            alert('Something went wrong. Please try again.');
+          }
+        } catch (error) {
+          alert('Something went wrong. Please try again.');
+        }
+      });
+    }
+  </script>
+</body>
+</html>

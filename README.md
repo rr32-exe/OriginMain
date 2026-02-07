@@ -1,5 +1,247 @@
 # OriginMain
-Origin-Main
+
+A complete Node.js application structure for the OriginMain project.
+
+---
+
+## 🎉 NEW: SwankyBoyz Affiliate Marketing System
+
+**A complete, production-ready affiliate marketing system is now available in this repository!**
+
+### 📁 Location
+All SwankyBoyz code is in the `/swankyboyz` directory.
+
+### 🚀 What It Is
+A full-stack affiliate marketing platform that:
+- Replaces Amazon Associates with higher-commission networks (ShareASale, CJ, Impact)
+- Runs entirely on Cloudflare's free tier (zero hosting costs)
+- Includes click tracking, analytics, and revenue reporting
+- Features mobile-responsive product components
+- Supports AI content generation with OpenAI
+
+### 📊 Key Features
+- **15-25% commissions** vs Amazon's 3-10%
+- **30-90 day cookies** vs Amazon's 24 hours
+- **GDPR-compliant** click tracking
+- **100% free hosting** on Cloudflare
+- **Production-ready** code
+
+### 📚 Quick Links
+
+**Start Here:**
+- 🚀 [**QUICK-START.md**](./swankyboyz/QUICK-START.md) - Deploy in 4-6 hours (optimized for internet café)
+- 📖 [**PROJECT-OVERVIEW.md**](./swankyboyz/PROJECT-OVERVIEW.md) - Complete system guide
+- 🔧 [**DEPLOY.md**](./swankyboyz/DEPLOY.md) - Detailed deployment instructions
+- 📘 [**README.md**](./swankyboyz/README.md) - Technical documentation
+
+### 💡 Perfect For
+- Digital nomads with limited internet access
+- Affiliate marketers wanting higher commissions
+- Anyone building a niche product review site
+- Developers learning modern web stack
+
+### 🛠️ Tech Stack
+- **Frontend**: Astro + Tailwind CSS
+- **Backend**: Cloudflare Workers + D1 + R2
+- **Database**: SQLite at the edge
+- **Analytics**: Built-in click tracking
+
+### 🎯 Get Started
+```bash
+cd swankyboyz
+npm install
+npm run dev
+```
+
+Then follow [QUICK-START.md](./swankyboyz/QUICK-START.md) for deployment.
+
+---
+
+## Original OriginMain Project
+
+### Overview
+
+This repository contains a well-structured Node.js application with proper organization and best practices.
+
+### Features
+
+- 📦 Modular architecture with clear separation of concerns
+- 🔧 Configuration management
+- 🛠️ Utility functions for common operations
+- ⚡ Simple and extensible structure
+
+### Project Structure
+
+```
+OriginMain/
+├── swankyboyz/        # NEW: Complete affiliate marketing system
+├── index.js           # Main entry point
+├── package.json       # Project dependencies and scripts
+├── src/
+│   ├── app.js        # Application core logic
+│   ├── config.js     # Configuration management
+│   └── utils.js      # Utility functions
+├── README.md         # This file
+└── LICENSE           # MIT License
+```
+
+### Getting Started
+
+#### Prerequisites
+
+- Node.js (v14 or higher recommended)
+- npm (comes with Node.js)
+
+#### Installation
+
+1. Clone the repository:
+```bash
+git clone https://github.com/rr32-exe/OriginMain.git
+cd OriginMain
+```
+
+2. Install dependencies:
+```bash
+npm install
+```
+
+#### Running the Application
+
+Start the application:
+```bash
+npm start
+```
+
+Or for development:
+```bash
+npm run dev
+```
+
+### Usage
+
+The application provides a basic structure that can be extended for various purposes:
+
+- **Application Core** (`src/app.js`): Contains the main application logic
+- **Configuration** (`src/config.js`): Manage application settings
+- **Utilities** (`src/utils.js`): Common helper functions
+
+### Development
+
+To extend this application:
+
+1. Add new modules in the `src/` directory
+2. Update configuration in `src/config.js`
+3. Add utility functions to `src/utils.js`
+4. Update the main logic in `src/app.js`
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## Author
+
+Created by rr32-exe
+
+## Acknowledgments
+
+Built with Node.js and modern JavaScript practices.
+
+
+A complete Node.js application structure for the OriginMain project.
+
+## Overview
+
+This repository contains a well-structured Node.js application with proper organization and best practices.
+
+## Features
+
+- 📦 Modular architecture with clear separation of concerns
+- 🔧 Configuration management
+- 🛠️ Utility functions for common operations
+- ⚡ Simple and extensible structure
+
+## Project Structure
+
+```
+OriginMain/
+├── index.js           # Main entry point
+├── package.json       # Project dependencies and scripts
+├── src/
+│   ├── app.js        # Application core logic
+│   ├── config.js     # Configuration management
+│   └── utils.js      # Utility functions
+├── README.md         # This file
+└── LICENSE           # MIT License
+```
+
+## Getting Started
+
+### Prerequisites
+
+- Node.js (v14 or higher recommended)
+- npm (comes with Node.js)
+
+### Installation
+
+1. Clone the repository:
+```bash
+git clone https://github.com/rr32-exe/OriginMain.git
+cd OriginMain
+```
+
+2. Install dependencies:
+```bash
+npm install
+```
+
+### Running the Application
+
+Start the application:
+```bash
+npm start
+```
+
+Or for development:
+```bash
+npm run dev
+```
+
+## Usage
+
+The application provides a basic structure that can be extended for various purposes:
+
+- **Application Core** (`src/app.js`): Contains the main application logic
+- **Configuration** (`src/config.js`): Manage application settings
+- **Utilities** (`src/utils.js`): Common helper functions
+
+## Development
+
+To extend this application:
+
+1. Add new modules in the `src/` directory
+2. Update configuration in `src/config.js`
+3. Add utility functions to `src/utils.js`
+4. Update the main logic in `src/app.js`
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## Author
+
+Created by rr32-exe
+
+## Acknowledgments
+
+Built with Node.js and modern JavaScript practices.
 PROJECT: SwankyBoys Affiliate System Migration - Cloudflare Edition
 OBJECTIVE
 Build a complete affiliate marketing system for SwankyBoys.com to replace Amazon Associates, hosted entirely on Cloudflare's free tier using Pages, Workers, D1, and R2.

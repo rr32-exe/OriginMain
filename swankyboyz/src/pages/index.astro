@@ -1,0 +1,250 @@
+---
+// Homepage
+import MainLayout from '../layouts/MainLayout.astro';
+import ProductCard from '../components/ProductCard.astro';
+import ComparisonTable from '../components/ComparisonTable.astro';
+import ProductGrid from '../components/ProductGrid.astro';
+
+// In a real implementation, this would fetch from the D1 database
+// For now, we'll use sample data
+const featuredProducts = [
+  {
+    id: 1,
+    title: "Orient Bambino Automatic Watch",
+    description: "Classic dress watch with automatic movement, perfect for any occasion",
+    price: 289.00,
+    affiliate_url: "https://shareasale.com/r.cfm?b=123&u=YOURID&m=12345",
+    affiliate_network: "shareasale",
+    category: "Watches",
+    commission_rate: 15.00,
+    cookie_duration: 30,
+    image_url: "/images/products/orient-bambino.jpg",
+    currency: "USD"
+  },
+  {
+    id: 2,
+    title: "Seiko 5 Sports Watch",
+    description: "Automatic sports watch with 100m water resistance",
+    price: 295.00,
+    affiliate_url: "https://shareasale.com/r.cfm?b=124&u=YOURID&m=12345",
+    affiliate_network: "shareasale",
+    category: "Watches",
+    commission_rate: 15.00,
+    cookie_duration: 30,
+    image_url: "/images/products/seiko-5.jpg",
+    currency: "USD"
+  },
+  {
+    id: 7,
+    title: "Sony WH-1000XM5 Headphones",
+    description: "Industry-leading noise cancellation",
+    price: 399.00,
+    affiliate_url: "https://shareasale.com/r.cfm?b=126&u=YOURID&m=12347",
+    affiliate_network: "shareasale",
+    category: "Tech",
+    commission_rate: 10.00,
+    cookie_duration: 30,
+    image_url: "/images/products/sony-headphones.jpg",
+    currency: "USD"
+  }
+];
+
+const topPick = featuredProducts[0];
+---
+
+<MainLayout>
+  {/* Hero Section */}
+  <section class="hero mb-16 bg-gradient-to-br from-primary via-gray-900 to-primary text-white rounded-2xl overflow-hidden">
+    <div class="px-8 py-16 md:py-24 text-center">
+      <h1 class="text-4xl md:text-6xl font-bold mb-6 animate-fade-in">
+        Elevate Your <span class="text-secondary">Style</span>
+      </h1>
+      <p class="text-xl md:text-2xl text-gray-300 mb-8 max-w-3xl mx-auto">
+        Discover premium men's products curated for the modern gentleman. 
+        Expert reviews, honest recommendations, and the best deals.
+      </p>
+      <div class="flex flex-wrap gap-4 justify-center">
+        <a href="/categories/watches" class="btn-primary bg-secondary hover:bg-accent px-8 py-4 text-lg">
+          Shop Watches
+        </a>
+        <a href="/articles" class="btn-secondary bg-white/10 hover:bg-white/20 text-white px-8 py-4 text-lg">
+          Read Reviews
+        </a>
+      </div>
+    </div>
+  </section>
+
+  {/* Categories Grid */}
+  <section class="mb-16">
+    <h2 class="text-3xl font-bold mb-8 text-center">Shop by Category</h2>
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+      {[
+        { name: 'Watches', icon: '⌚', href: '/categories/watches' },
+        { name: 'Grooming', icon: '💈', href: '/categories/grooming' },
+        { name: 'Tech', icon: '💻', href: '/categories/tech' },
+        { name: 'Fashion', icon: '👔', href: '/categories/fashion' },
+        { name: 'Fitness', icon: '💪', href: '/categories/fitness' },
+        { name: 'Home Office', icon: '🏢', href: '/categories/home-office' },
+        { name: 'Fragrances', icon: '🌺', href: '/categories/fragrances' },
+        { name: 'Leather Goods', icon: '👜', href: '/categories/leather-goods' }
+      ].map(category => (
+        <a 
+          href={category.href}
+          class="category-card bg-white rounded-lg shadow-md hover:shadow-xl transition-all duration-300 p-6 text-center group"
+        >
+          <div class="text-5xl mb-3 transform group-hover:scale-110 transition-transform">
+            {category.icon}
+          </div>
+          <h3 class="font-semibold text-gray-900 group-hover:text-secondary transition-colors">
+            {category.name}
+          </h3>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  {/* Featured Products */}
+  <section class="mb-16">
+    <h2 class="text-3xl font-bold mb-8">Featured Products</h2>
+    <ProductGrid products={featuredProducts} columns={3} />
+  </section>
+
+  {/* Why Trust Us Section */}
+  <section class="mb-16 bg-white rounded-2xl shadow-lg p-8 md:p-12">
+    <h2 class="text-3xl font-bold mb-8 text-center">Why Trust SwankyBoyz?</h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div class="text-center">
+        <div class="w-16 h-16 bg-secondary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+          <svg class="w-8 h-8 text-secondary" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+          </svg>
+        </div>
+        <h3 class="text-xl font-semibold mb-2">Expert Reviews</h3>
+        <p class="text-gray-600">
+          Every product is thoroughly tested and reviewed by our expert team.
+        </p>
+      </div>
+      
+      <div class="text-center">
+        <div class="w-16 h-16 bg-secondary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+          <svg class="w-8 h-8 text-secondary" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M8.433 7.418c.155-.103.346-.196.567-.267v1.698a2.305 2.305 0 01-.567-.267C8.07 8.34 8 8.114 8 8c0-.114.07-.34.433-.582zM11 12.849v-1.698c.22.071.412.164.567.267.364.243.433.468.433.582 0 .114-.07.34-.433.582a2.305 2.305 0 01-.567.267z"/>
+            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-13a1 1 0 10-2 0v.092a4.535 4.535 0 00-1.676.662C6.602 6.234 6 7.009 6 8c0 .99.602 1.765 1.324 2.246.48.32 1.054.545 1.676.662v1.941c-.391-.127-.68-.317-.843-.504a1 1 0 10-1.51 1.31c.562.649 1.413 1.076 2.353 1.253V15a1 1 0 102 0v-.092a4.535 4.535 0 001.676-.662C13.398 13.766 14 12.991 14 12c0-.99-.602-1.765-1.324-2.246A4.535 4.535 0 0011 9.092V7.151c.391.127.68.317.843.504a1 1 0 101.511-1.31c-.563-.649-1.413-1.076-2.354-1.253V5z" clip-rule="evenodd"/>
+          </svg>
+        </div>
+        <h3 class="text-xl font-semibold mb-2">Best Prices</h3>
+        <p class="text-gray-600">
+          We track prices across multiple retailers to ensure you get the best deal.
+        </p>
+      </div>
+      
+      <div class="text-center">
+        <div class="w-16 h-16 bg-secondary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+          <svg class="w-8 h-8 text-secondary" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+          </svg>
+        </div>
+        <h3 class="text-xl font-semibold mb-2">Trusted Partners</h3>
+        <p class="text-gray-600">
+          We only recommend products from verified, reputable sellers.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  {/* Latest Articles */}
+  <section class="mb-16">
+    <div class="flex items-center justify-between mb-8">
+      <h2 class="text-3xl font-bold">Latest Articles</h2>
+      <a href="/articles" class="text-secondary hover:text-accent font-semibold">
+        View All →
+      </a>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {[
+        {
+          title: "15 Affordable Luxury Watches Under $500",
+          excerpt: "Discover timepieces that look expensive without breaking the bank",
+          image: "/images/articles/watches-under-500.jpg",
+          category: "Watches",
+          readTime: "12 min"
+        },
+        {
+          title: "The Complete Men's Grooming Kit",
+          excerpt: "12 essential products every man needs in his bathroom",
+          image: "/images/articles/grooming-kit.jpg",
+          category: "Grooming",
+          readTime: "8 min"
+        },
+        {
+          title: "Best Tech Gadgets for 2026",
+          excerpt: "Latest tech that actually improves your daily life",
+          image: "/images/articles/tech-gadgets.jpg",
+          category: "Tech",
+          readTime: "15 min"
+        }
+      ].map(article => (
+        <a href="/articles" class="article-card bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-all duration-300">
+          <div class="aspect-video bg-gray-200"></div>
+          <div class="p-6">
+            <div class="flex items-center gap-2 mb-3">
+              <span class="text-xs font-semibold text-secondary">{article.category}</span>
+              <span class="text-xs text-gray-500">• {article.readTime}</span>
+            </div>
+            <h3 class="text-xl font-semibold mb-2 text-gray-900">{article.title}</h3>
+            <p class="text-gray-600 text-sm">{article.excerpt}</p>
+          </div>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  {/* Newsletter CTA */}
+  <section class="bg-gradient-to-r from-secondary to-accent rounded-2xl p-8 md:p-12 text-white text-center">
+    <h2 class="text-3xl md:text-4xl font-bold mb-4">
+      Never Miss a Deal
+    </h2>
+    <p class="text-xl mb-8 text-white/90">
+      Get weekly product reviews and exclusive deals delivered to your inbox.
+    </p>
+    <form class="max-w-md mx-auto flex gap-2">
+      <input 
+        type="email" 
+        placeholder="Enter your email" 
+        class="flex-1 px-4 py-3 rounded-lg text-gray-900 focus:outline-none focus:ring-2 focus:ring-white"
+        required
+      />
+      <button 
+        type="submit"
+        class="px-6 py-3 bg-white text-primary font-semibold rounded-lg hover:bg-gray-100 transition-colors"
+      >
+        Subscribe
+      </button>
+    </form>
+  </section>
+</MainLayout>
+
+<style>
+  .animate-fade-in {
+    animation: fadeIn 1s ease-in-out;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .category-card:hover {
+    transform: translateY(-4px);
+  }
+
+  .article-card:hover {
+    transform: translateY(-4px);
+  }
+</style>
