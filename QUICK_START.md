@@ -20,7 +20,12 @@ npm install
 
 # Install Wrangler CLI globally
 npm install -g wrangler@latest
+
+# Security check
+npm audit
 ```
+
+**Important:** If `npm audit` shows vulnerabilities, run `npm audit fix` before proceeding.
 
 ## 2. Environment Setup (3 minutes)
 

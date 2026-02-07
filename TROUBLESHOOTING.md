@@ -532,10 +532,89 @@ wrangler tail link-redirect
 
 ---
 
+## 🔒 Security Issues
+
+### Dependency Vulnerabilities
+
+**Problem:** npm audit shows vulnerabilities.
+
+**Solution:**
+
+1. Check for vulnerabilities:
+```bash
+npm audit
+```
+
+2. Automatic fix (safe):
+```bash
+npm audit fix
+```
+
+3. Force fix (may break):
+```bash
+npm audit fix --force
+```
+
+4. Update specific package:
+```bash
+npm update astro
+# or
+npm install astro@latest
+```
+
+### XSS/Injection Attempts
+
+**Problem:** Suspicious requests in logs.
+
+**Solution:**
+
+1. Check Cloudflare firewall:
+   - Dashboard → Security → WAF
+   - Review blocked requests
+
+2. Enable rate limiting:
+   - Already implemented in workers
+   - Adjust thresholds if needed
+
+3. Review logs for patterns:
+```bash
+wrangler tail link-redirect | grep -i "error\|attack\|inject"
+```
+
+### SSL/HTTPS Issues
+
+**Problem:** Mixed content warnings.
+
+**Solution:**
+
+1. Verify all URLs use HTTPS
+2. Check Cloudflare SSL settings:
+   - Should be "Full" or "Full (Strict)"
+3. Force HTTPS redirect:
+   - Enable in Cloudflare Pages settings
+
+### Keep Dependencies Updated
+
+```bash
+# Check for outdated packages
+npm outdated
+
+# Update all dependencies
+npm update
+
+# Verify no vulnerabilities
+npm audit
+```
+
+**See SECURITY.md for detailed security guidelines.**
+
+---
+
 **Remember:** Most issues are configuration-related. Double-check:
 - Environment variables
 - Database IDs
 - API keys
 - Route patterns
+- Dependency versions
 
 Good luck! 🚀

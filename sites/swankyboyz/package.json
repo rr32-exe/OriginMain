@@ -9,7 +9,7 @@
     "deploy": "wrangler pages deploy dist --project-name=swankyboyz"
   },
   "dependencies": {
-    "astro": "^4.0.0"
+    "astro": "^5.15.8"
   },
   "devDependencies": {
     "@astrojs/tailwind": "^5.0.0",
