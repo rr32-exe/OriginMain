@@ -1,0 +1,83 @@
+---
+interface Props {
+  title: string;
+  price: number;
+  currency?: string;
+  image?: string;
+  affiliate_url: string;
+  product_id: number;
+  rating?: number;
+  commission_rate?: number;
+}
+
+const { 
+  title, 
+  price, 
+  currency = 'USD', 
+  image, 
+  affiliate_url,
+  product_id,
+  rating = 5,
+  commission_rate
+} = Astro.props;
+
+const formattedPrice = new Intl.NumberFormat('en-US', {
+  style: 'currency',
+  currency: currency
+}).format(price);
+---
+
+<div class="product-card bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition">
+  {image && (
+    <div class="aspect-square bg-gray-200 overflow-hidden">
+      <img 
+        src={image} 
+        alt={title}
+        class="w-full h-full object-cover hover:scale-105 transition duration-300"
+        loading="lazy"
+      />
+    </div>
+  )}
+  
+  <div class="p-6">
+    <h3 class="text-lg font-semibold mb-2 line-clamp-2">{title}</h3>
+    
+    <div class="flex items-center mb-3">
+      <div class="flex text-yellow-400">
+        {Array.from({ length: 5 }, (_, i) => (
+          <svg 
+            key={i}
+            class={`w-5 h-5 ${i < rating ? 'fill-current' : 'fill-gray-300'}`}
+            viewBox="0 0 20 20"
+          >
+            <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/>
+          </svg>
+        ))}
+      </div>
+      <span class="ml-2 text-sm text-gray-600">({rating}/5)</span>
+    </div>
+    
+    <div class="flex items-center justify-between mb-4">
+      <span class="text-2xl font-bold text-gray-900">{formattedPrice}</span>
+      {commission_rate && (
+        <span class="text-sm text-green-600 font-semibold">
+          {commission_rate}% commission
+        </span>
+      )}
+    </div>
+    
+    <a 
+      href={`/go/${product_id}`}
+      data-product-id={product_id}
+      class="block w-full bg-blue-600 text-white text-center py-3 rounded-lg font-semibold hover:bg-blue-700 transition"
+      rel="nofollow noopener"
+      target="_blank"
+    >
+      Check Price →
+    </a>
+    
+    <p class="text-xs text-gray-500 text-center mt-2">
+      View on retailer site
+    </p>
+  </div>
+</div>

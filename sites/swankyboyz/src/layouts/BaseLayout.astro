@@ -1,0 +1,124 @@
+---
+interface Props {
+  title: string;
+  description?: string;
+  image?: string;
+}
+
+const { title, description = "SwankyBoyz - Men's lifestyle, fashion, and tech recommendations", image = "/images/og-image.jpg" } = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{title} | SwankyBoyz</title>
+  <meta name="description" content={description}>
+  
+  <!-- Open Graph -->
+  <meta property="og:title" content={title}>
+  <meta property="og:description" content={description}>
+  <meta property="og:image" content={image}>
+  <meta property="og:type" content="website">
+  
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content={title}>
+  <meta name="twitter:description" content={description}>
+  <meta name="twitter:image" content={image}>
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  
+  <!-- Cloudflare Web Analytics -->
+  <script defer src='https://static.cloudflareinsights.com/beacon.min.js' 
+          data-cf-beacon='{"token": "YOUR_CLOUDFLARE_TOKEN"}'></script>
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="bg-gray-50 text-gray-900">
+  <header class="bg-white shadow-sm sticky top-0 z-50">
+    <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center h-16">
+        <div class="flex items-center">
+          <a href="/" class="text-2xl font-bold text-gray-900">
+            SwankyBoyz
+          </a>
+        </div>
+        
+        <div class="hidden md:flex space-x-8">
+          <a href="/category/watches" class="text-gray-600 hover:text-gray-900">Watches</a>
+          <a href="/category/grooming" class="text-gray-600 hover:text-gray-900">Grooming</a>
+          <a href="/category/tech" class="text-gray-600 hover:text-gray-900">Tech</a>
+          <a href="/category/fashion" class="text-gray-600 hover:text-gray-900">Fashion</a>
+          <a href="/about" class="text-gray-600 hover:text-gray-900">About</a>
+        </div>
+        
+        <!-- Mobile menu button -->
+        <div class="md:hidden">
+          <button type="button" class="text-gray-600 hover:text-gray-900">
+            <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <slot />
+  </main>
+
+  <footer class="bg-gray-900 text-white mt-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+        <div class="col-span-1 md:col-span-2">
+          <h3 class="text-xl font-bold mb-4">SwankyBoyz</h3>
+          <p class="text-gray-400 mb-4">
+            Quality recommendations for the modern man. From watches to tech, grooming to fashion.
+          </p>
+          <div class="flex space-x-4">
+            <a href="#" class="text-gray-400 hover:text-white">Twitter</a>
+            <a href="#" class="text-gray-400 hover:text-white">Instagram</a>
+            <a href="#" class="text-gray-400 hover:text-white">YouTube</a>
+          </div>
+        </div>
+        
+        <div>
+          <h4 class="font-semibold mb-4">Categories</h4>
+          <ul class="space-y-2 text-gray-400">
+            <li><a href="/category/watches" class="hover:text-white">Watches</a></li>
+            <li><a href="/category/grooming" class="hover:text-white">Grooming</a></li>
+            <li><a href="/category/tech" class="hover:text-white">Tech</a></li>
+            <li><a href="/category/fashion" class="hover:text-white">Fashion</a></li>
+          </ul>
+        </div>
+        
+        <div>
+          <h4 class="font-semibold mb-4">Legal</h4>
+          <ul class="space-y-2 text-gray-400">
+            <li><a href="/disclosure" class="hover:text-white">Affiliate Disclosure</a></li>
+            <li><a href="/privacy" class="hover:text-white">Privacy Policy</a></li>
+            <li><a href="/contact" class="hover:text-white">Contact</a></li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
+        <p>&copy; 2025 SwankyBoyz. All rights reserved.</p>
+        <p class="text-sm mt-2">
+          We may earn commissions from qualifying purchases made through affiliate links.
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Click tracking -->
+  <script src="/js/track-clicks.js"></script>
+</body>
+</html>
